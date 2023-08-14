@@ -1,26 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<h1>News Search</h1>
+<h1>🌐 News Search</h1>
 <form id="searchForm">
-    <label for="query">Search: </label>
+    <label for="query">Search for news: </label>
     <input type="text" id="query" name="query">
-    <button type="submit">Search</button>
+    <button type="submit">🔍 Search</button>
 </form>
-<div id="results"><h1>Top News Headlines</h1>
-    <ul>
-        <li th:each="article : ${articles}">
-            <h3><a th:href="${article.url}" th:text="${article.title}"></a></h3>
-            <p th:text="${article.description}"></p>
-        </li>
-    </ul></div>
+<div id="results">
+    <h1>📰 Top News Headlines</h1>
+    <!-- Articles will be displayed here -->
+</div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     document.getElementById("searchForm").addEventListener("submit", function(event) {
         event.preventDefault();
@@ -37,7 +38,7 @@
 
     function displayResults(results) {
         const resultsDiv = document.getElementById("results");
-        resultsDiv.innerHTML = "";
+        resultsDiv.innerHTML = `<h1>📰 Top News Headlines</h1>`;
         results.forEach(article => {
             const articleDiv = document.createElement("div");
             articleDiv.innerHTML = `<a href="${article.url}"><h3>${article.title}</h3></a><p>${article.description}</p>`;
