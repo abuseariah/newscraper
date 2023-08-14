@@ -27,6 +27,7 @@ public class NewsController {
     public ResponseEntity<List<Article>> searchNews(@RequestParam String query, @RequestParam(defaultValue = "1") int page,NewsService newsService) {
         List<Article> searchResults = newsService.searchArticles(query,page);
 
+
         return ResponseEntity.ok(searchResults);
     }
 }

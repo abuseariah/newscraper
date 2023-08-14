@@ -10,18 +10,12 @@
 <body>
 <h1>🌐 News Search</h1>
 <form id="searchForm">
-    <input type="text" id="query" name="query">
+    <input type="text" id="query" name="query"placeholder="leave empty for top stories">
     <button type="submit">🔍 Search</button>
 </form>
 <div id="results">
-    <h1>📰 Top Current News Headlines</h1>
-        <div th:each="article : ${articles}">
-            <h3><a th:href="${article.url}" th:text="${article.title}"></a></h3>
-            <p th:text="${article.description}"></p>
-        </div>
-    <!-- Articles will be displayed here -->
 </div>
-<button id="loadMoreButton" class="btn btn-primary mx-auto d-block mt-3">Load More</button>
+<button id="loadMoreButton" class="btn btn-primary mx-auto d-block mt-3"    style="display: none !important;" >Load More</button>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -58,6 +52,11 @@
             articleDiv.innerHTML = `<a href="${article.url}"><h3>${article.title}</h3></a><p>${article.description}</p>`;
             resultsDiv.appendChild(articleDiv);
         });
+        // Enable the "Load More" button
+        const loadMoreButton = document.getElementById("loadMoreButton");
+        loadMoreButton.style.display = "block";
+
+
     }
 </script>
 </body>

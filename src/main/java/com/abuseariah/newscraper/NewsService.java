@@ -21,6 +21,20 @@ public class NewsService {
         int itemsPerPage = 5;
         int startIndex=(page)* itemsPerPage;
         int endIndex = startIndex+itemsPerPage;
+        NewsResponse response= newsApiClient.listArticle();;
+        if(!query.isEmpty())
+             response = newsApiClient.getNewsByKeyword(query);
+        List<Article> test=response.getArticles();
+        List<Article> extract= new java.util.ArrayList<Article>();
+        for(int i=startIndex;i<Math.min(endIndex,test.size());i++){
+            extract.add(test.get(i));
+        }
+        return extract;
+    }
+    public List<Article> headnuews(String query,int page) {
+        int itemsPerPage = 5;
+        int startIndex=(page)* itemsPerPage;
+        int endIndex = startIndex+itemsPerPage;
         NewsResponse response = newsApiClient.getNewsByKeyword(query);
         List<Article> test=response.getArticles();
         List<Article> extract= new java.util.ArrayList<Article>();
@@ -29,6 +43,7 @@ public class NewsService {
         }
         return extract;
     }
+
 
     public NewsResponse listArticles() {
 
