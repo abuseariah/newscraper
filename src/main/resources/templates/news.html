@@ -1,17 +1,49 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>News</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Search</title>
 </head>
 <body>
-<h1>Top News Headlines</h1>
-<ul>
-    <li th:each="article : ${articles}">
-        <h3><a th:href="${article.url}" th:text="${article.title}"></a></h3>
-        <p th:text="${article.description}"></p>
-    </li>
-</ul>
+<h1>News Search</h1>
+<form id="searchForm">
+    <label for="query">Search: </label>
+    <input type="text" id="query" name="query">
+    <button type="submit">Search</button>
+</form>
+<div id="results"><h1>Top News Headlines</h1>
+    <ul>
+        <li th:each="article : ${articles}">
+            <h3><a th:href="${article.url}" th:text="${article.title}"></a></h3>
+            <p th:text="${article.description}"></p>
+        </li>
+    </ul></div>
+
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        searchNews();
+    });
+
+    function searchNews() {
+        const query = document.getElementById("query").value;
+        fetch(`/search?query=${query}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => console.error("Error fetching search results:", error));
+    }
+
+    function displayResults(results) {
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "";
+        results.forEach(article => {
+            const articleDiv = document.createElement("div");
+            articleDiv.innerHTML = `<a href="${article.url}"><h3>${article.title}</h3></a><p>${article.description}</p>`;
+            resultsDiv.appendChild(articleDiv);
+        });
+    }
+</script>
 </body>
 </html>
